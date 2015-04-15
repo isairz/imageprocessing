@@ -4,9 +4,13 @@
   <script src="./skeletonization.js"></script>
 </head>
 <body>
-  <img id="img" src="./images/hanayo.jpg" onLoad="skeletonization()" />
+  <video id="img" width="640" height="360" src="./images/mikumiku360p.mp4" autoplay=true></video>
   <canvas id="origin"></canvas>
   <canvas id="binary"></canvas>
   <canvas id="skeleton"></canvas>
+  <canvas id="sum"><canvas>
+  <script>
+    window.onload = skeletonization();
+  </script>
 </body>
 </html>

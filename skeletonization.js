@@ -72,12 +72,12 @@ function skeletonize(src)
           }
         }
 
-        if (A(P) != 1) {
+        var b = B(P);
+        if (b < 2 || b > 6) {
           return false;
         }
 
-        var b = B(P);
-        if (b < 2 || b > 6) {
+        if (A(P) != 1) {
           return false;
         }
 
@@ -92,12 +92,14 @@ function skeletonize(src)
       }
     }
 
+    var start = new Date();
     var temp = dest1;
     dest1 = dest2;
     dest2 = dest1;
     odd = !odd;
-    console.log("stap");
+    break;
   } while(changed)
+  console.log(new Date()-start);
   return dest1;
 }
 
@@ -107,12 +109,19 @@ function skeletonization() {
   var binaryCanvas = document.getElementById("binary");
   var skeletonCanvas = document.getElementById("skeleton");
 
+  if (!img || !originCanvas || !binaryCanvas, !skeletonCanvas) {
+    // Not Loaded
+    requestAnimationFrame(skeletonization);
+    return;
+  }
+
   var origin = getImageData(img);
-  var binary = binaryScale(origin, 128);
+  var binary = binaryScale(origin, 98);
   var skeleton = skeletonize(binary);
 
   drawRgb(originCanvas, origin);
   drawBinary(binaryCanvas, binary);
   drawBinary(skeletonCanvas, skeleton);
+  requestAnimationFrame(skeletonization);
 }
 
