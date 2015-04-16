@@ -1,13 +1,4 @@
-'use strict';
-
-function getImageData(img) {
-  var canvas = document.createElement("canvas");
-  var ctx = canvas.getContext("2d");
-  canvas.width = img.width;
-  canvas.height = img.height;
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  return ctx.getImageData(0, 0, canvas.width, canvas.height);
-}
+//'use strict';
 
 function createBinaryData(width, height) {
   return {
@@ -35,6 +26,20 @@ function binaryScale(rgb, threshold) {
   return binary;
 }
 
+function getImageData(image) {
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+  drawImage(canvas, image);
+  return ctx.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+function drawImage(canvas, image) {
+  var ctx = canvas.getContext("2d");
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+}
+
 function drawRgb(canvas, rgb) {
   canvas.width = rgb.width;
   canvas.height = rgb.height;
@@ -44,8 +49,8 @@ function drawRgb(canvas, rgb) {
 }
 
 function drawBinary(canvas, binary) {
-  var width = binary.width;
-  var height = binary.height;
+  var width = binary.width || binary.getShape()[1];
+  var height = binary.height || binary.getShape()[0];
 
   canvas.width = width;
   canvas.height = height;
@@ -54,7 +59,7 @@ function drawBinary(canvas, binary) {
   var rgb = ctx.createImageData(width, height);
   var rgbData = rgb.data;
   for (var i = 0; i < rgbData.length; i+=4) {
-    var color = binary.data[i/4] ? 255 : 0;
+    var color = binary.data[i/4] ? 0 : 255;
     rgbData[i] = color;
     rgbData[i+1] = color;
     rgbData[i+2] = color;
@@ -64,3 +69,23 @@ function drawBinary(canvas, binary) {
   ctx.putImageData(rgb, 0, 0);
 }
 
+function drawBinary2(canvas, binary1, binary2) {
+  var width = binary1.width || binary1.getShape()[1];
+  var height = binary1.height || binary1.getShape()[0];
+
+  canvas.width = width;
+  canvas.height = height;
+  var ctx = canvas.getContext("2d");
+
+  var rgb = ctx.createImageData(width, height);
+  var rgbData = rgb.data;
+  for (var i = 0; i < rgbData.length; i+=4) {
+    var color = binary2.data[i/4] ? 0 : binary1.data[i/4] ? 100 : 255;
+    rgbData[i] = color;
+    rgbData[i+1] = color;
+    rgbData[i+2] = color;
+    rgbData[i+3] = 255;
+  }
+
+  ctx.putImageData(rgb, 0, 0);
+}

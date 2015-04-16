@@ -1,0 +1,24 @@
+<html>
+<head>
+  <script src="./lib/math.min.js"></script>
+  <script src="./common/canvas.js"></script>
+  <script src="./affineTransform.js"></script>
+  <link type="text/css" rel="stylesheet" href="affineTransform.css">
+</head>
+<body>
+  <div>
+    <select id="interpolation">
+      <option value="nearest">Nearest neighborhood interpolation</option>
+      <option value="linear">Bilinear interpolation</option>
+    </select>
+  </div>
+  <div>
+    <img id="source" src="./images/source.jpg" width=512 height=384 />
+    <img id="target" src="./images/target.jpg" width=512 height=384 onLoad="AT.init()" />
+  </div>
+  <div>
+    <canvas id="moved"></canvas>
+    <canvas id="difference"></canvas>
+  </div>
+</body>
+</html>

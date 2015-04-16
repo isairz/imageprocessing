@@ -1,16 +1,20 @@
 <html>
 <head>
+  <script src="./lib/RiverTrail.min.js"></script>
   <script src="./common/canvas.js"></script>
   <script src="./skeletonization.js"></script>
 </head>
 <body>
-  <video id="img" width="640" height="360" src="./images/mikumiku360p.mp4" autoplay=true></video>
-  <canvas id="origin"></canvas>
-  <canvas id="binary"></canvas>
+  <!--<video id="img" width="640" height="360" src="./images/mikumiku360p.mp4" autoplay=true></video>-->
+  <video id="img" width="320" height="180" src="./images/video2.mp4" autoplay=true controls loop muted></video>
+  <!--<img id="img" src="images/test.png">-->
+  <canvas id="origin" style="display: none;"></canvas>
+  <canvas id="binary" style="display: none;"></canvas>
   <canvas id="skeleton"></canvas>
-  <canvas id="sum"><canvas>
+  <canvas id="sum"></canvas>
   <script>
     window.onload = skeletonization();
+    javascript:(function(){var script=document.createElement('script');script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.body.appendChild(script);script=document.createElement('script');script.innerHTML='var interval=setInterval(function(){if(typeof Stats==\'function\'){clearInterval(interval);var stats=new Stats();stats.domElement.style.position=\'fixed\';stats.domElement.style.left=\'0px\';stats.domElement.style.top=\'0px\';stats.domElement.style.zIndex=\'10000\';document.body.appendChild(stats.domElement);setInterval(function(){stats.update();},1000/60);}},100);';document.body.appendChild(script);})();
   </script>
 </body>
 </html>
